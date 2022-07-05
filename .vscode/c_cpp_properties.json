@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                // "/home/void/Qt/6.3.1/gcc_64/include/**",
+                "/home/void/Qt/6.3.1/gcc_64/include/QtGui/**",
+                "/home/void/Qt/6.3.1/gcc_64/include/QtCore/**",
+                "/home/void/Qt/6.3.1/gcc_64/include/QtWidgets/**"
+            ],
+            "defines": [
+                "CMAKE_PREFIX_PATH=/home/void/Qt/6.3.1/gcc_64/",
+                "ENABLE_FEATURE=1",
+                "ENABLE_OTHER_FEATURE=0",
+                "symbolSearchPath=/home/void/Qt/6.3.1/gcc_64/bin"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu17",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.cmake-tools"
+        }
+    ],
+    "version": 4
+}
