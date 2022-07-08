@@ -80,7 +80,7 @@ void Decoder::getPacket(enum Command& cmd_out, uint8_t* data_out) {
  * packet format:
  *       |-header-|-cmd-|-tocken-|-data len-|-data-|-chksum-|
  */
-uint8_t* Decoder::encode(enum Command cmd, uint8_t* data) {
+uint8_t* Decoder::encode(enum Command cmd,const uint8_t* data) {
   uint16_t len = std::strlen((char*)data);
 
   uint8_t chksum{0};

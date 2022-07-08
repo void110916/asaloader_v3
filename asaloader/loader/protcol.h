@@ -56,8 +56,7 @@ class Decoder {
   int _length;
   uint8_t *_data;
   int _chksum;
-  bool isError;
-  bool isDone;
+
   uint8_t *header_buffer;
   static constexpr uint8_t _HEADER[3] = {0x00, 0x00, 0x00};
   static const uint8_t _TOCKEN = 0x01;
@@ -72,6 +71,9 @@ class Decoder {
   void put_data(uint8_t data);
 
  public:
+  bool isError;
+  bool isDone;
+  
   Decoder();
   ~Decoder();
   void step(uint8_t data);
@@ -82,7 +84,7 @@ class Decoder {
    * @param data Data in the package.
    * @return uint8_t* Package as bytes.
    */
-  static uint8_t *encode(enum Command cmd, uint8_t *data);
+  static uint8_t *encode(enum Command cmd,const uint8_t *data);
 };
 
 }  // namespace Loader
