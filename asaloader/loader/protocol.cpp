@@ -5,7 +5,7 @@
 #include "protcol.h"
 using namespace Loader;
 
-Decoder::Decoder() : _status{HEADER} {
+Decoder::Decoder() : _status{HEADER},_data{NULL} {
   header_buffer = new uint8_t[3]();  // initialize to 0s
 }
 
@@ -18,11 +18,14 @@ Decoder::~Decoder() {
 void Decoder::put_data(uint8_t data) {
   static uint8_t* ptr = _data;
   *ptr = data;
+  ptr++;
 }
 void Decoder::step(uint8_t data) {
   static uint8_t* buffer_ptr = header_buffer;
   switch (_status) {
     case HEADER:
+      std::memcpy(buffer_ptr,header_buffer+1,2);
+      buffer_ptr[2]=data;
       *buffer_ptr = data;
       if (std::memcmp(buffer_ptr, header_buffer, 3) == 0) {
         _chksum = 0;
@@ -42,6 +45,7 @@ void Decoder::step(uint8_t data) {
       if (_counter) {
         _length += data;
         _counter = 0;
+        delete _data;
         _data = new uint8_t[_length];
         _status = _status ? DATA : CHKSUM;
       } else
@@ -81,7 +85,7 @@ void Decoder::getPacket(enum Command& cmd_out, uint8_t* data_out) {
  *       |-header-|-cmd-|-tocken-|-data len-|-data-|-chksum-|
  */
 uint8_t* Decoder::encode(enum Command cmd,const uint8_t* data) {
-  uint16_t len = std::strlen((char*)data);
+  uint16_t &&len = std::strlen((char*)data);
 
   uint8_t chksum{0};
   for (int i = 0; i < len; i++) chksum = chksum + data[len];
