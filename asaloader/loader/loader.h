@@ -3,38 +3,13 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <functional>
+#include <string>
+#include <vector>
 
+#include "ihex.h"
 #include "protcol.h"
 QT_BEGIN_NAMESPACE
 namespace Loader {
-
-class Loader {
- private:
-  QSerialPort &_serial;
-  Decoder *_decoder;
-
- public:
-  enum _Stage {
-    PREPARE,
-    FLASH_PROG,
-    EEP_PROG,
-    EXT_FLASH_PROG,
-    EXT_TO_INT,
-    END
-  };
-  _Stage _stage;
-
-  Loader(QSerialPort &serial);
-  ~Loader();
-};
-
-Loader::Loader(QSerialPort &serial) : _serial(serial) {
-  _decoder = new Decoder();
-  _stage = PREPARE;
-}
-
-Loader::~Loader() { delete (_decoder); }
-
 class CMD {
  private:
   const uint8_t HEADER[3] = {0xfc, 0xfc, 0xfc};
@@ -88,6 +63,61 @@ class CMD {
   bool cmd_v3_ext_flash_prepare(const char *);
   bool cmd_v3_ext_flash_hex_delete();
   bool cmd_v3_ext_flash_finish();
+};
+class Loader {
+ private:
+  enum Stage { PREPARE, FLASH_PROG, EEP_PROG, EXT_FLASH_PROG, EXT_TO_INT, END };
+
+  QSerialPort &_serial;
+  Stage _stage;
+  uint16_t _total_steps = 0;
+  uint16_t _cur_step = 0;
+  std::vector<char *> _flash_pages;
+  uint16_t _flash_page_idx;
+  std::vector<char *> _ext_flash_pages;
+  uint16_t _ext_flash_page_idx;
+  std::vector<char *> _eep_pages;
+  uint16_t _eep_page_idx;
+
+  uint16_t _flash_size = 0;
+  uint16_t _ext_flash_size = 0;
+  uint16_t _eep_size = 0;
+  float _prog_time = 0.f;
+
+  int _device_type;
+  int _protocol_version;
+  const char *_device_name;
+  bool _is_flash_prog;
+  bool _is_ext_flash_prog;
+  bool _is_eeprom_prog;
+  bool _is_ext_to_int;
+  bool _is_go_app;
+  std::string _flash_file;
+  std::string _ext_flash_file;
+  std::string _eep_file;
+  uint16_t _go_app_delay;
+
+  CMD cmd;
+
+  void _prepare();
+  void _prepare_device();
+  void _prepare_flash();
+  void _prepare_ext_flash();
+  void _prepare_eeprom();
+  void _do_flash_prog_step();
+  void _do_ext_flash_prog_step();
+  void _do_ext_to_int_prog_step();
+  void _do_eep_prog_step();
+  void _do_prog_end_step();
+
+ public:
+  Loader(QSerialPort &serial, int device_type = 0, bool is_flash_prog = false,
+         bool is_ext_flash_prog = false, bool is_eeprom_prog = false,
+         bool is_ext_to_int = false, bool is_go_app = false,
+         std::string flash_file = "", std::string ext_flash_file = "",
+         std::string eeprom_file = "", int go_app_delay = 0);
+  ~Loader();
+  void do_step();
 };
 
 }  // namespace Loader

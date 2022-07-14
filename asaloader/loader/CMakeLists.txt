@@ -21,6 +21,9 @@ add_library(loader STATIC
   loader.h
   protcol.h
   protocol.cpp
+  ihex.cpp
+  ihex.h
+  device.h
 )
 target_link_libraries(loader Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::SerialPort)
 

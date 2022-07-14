@@ -69,6 +69,10 @@
         "thread": "cpp",
         "cinttypes": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "filesystem": "cpp",
+        "iostream": "cpp",
+        "codecvt": "cpp",
+        "iomanip": "cpp"
     }
 }
