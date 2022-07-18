@@ -1,5 +1,6 @@
-#include <fstream>
-#include <sstream>
+#ifndef IHEX_H
+#define IHEX_H
+
 #include <string>
 #include <vector>
 namespace Ihex {
@@ -13,9 +14,10 @@ struct Section_t {
   ~Section_t() {}
 };
 
-std::vector<Section_t> parse(const char* filename);
-std::vector<Section_t> padding_space(std::vector<Section_t>& data, int pgsz,
+std::vector<Section_t> parse(const std::string filename);
+std::vector<Section_t>&& padding_space(std::vector<Section_t>& data, uint16_t pgsz,
                                      uint8_t space_data);
 std::vector<Section_t> cut_to_pages(std::vector<Section_t>& data,int pgsz);
 bool is_ihex(const char* name);
 }  // namespace Ihex
+#endif

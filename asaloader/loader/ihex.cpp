@@ -1,8 +1,11 @@
 #include "ihex.h"
 
-using namespace Ihex;
+#include <fstream>
+#include <sstream>
 
-std::vector<Section_t> prase(const char* filename) {
+namespace Ihex {
+
+std::vector<Section_t> parse(const std::string filename) {
   std::vector<Section_t> sections;
 
   uint16_t ext_addr = 0;
@@ -110,10 +113,9 @@ std::vector<Section_t> cut_to_pages(std::vector<Section_t>& data, int pgsz) {
     uint16_t sect_addr = section.address;
     ret.reserve(ret.size() + size);
     for (int i = 0; i < size; i++) {
-      std::vector<uint8_t>::const_iterator it=section.data.begin() + i * pgsz;
-      ret.push_back(Section_t(sect_addr + i * pgsz,
-                              std::vector<uint8_t>(it,
-                                          it + pgsz)));
+      std::vector<uint8_t>::const_iterator it = section.data.begin() + i * pgsz;
+      ret.push_back(
+          Section_t(sect_addr + i * pgsz, std::vector<uint8_t>(it, it + pgsz)));
     }
   }
   return ret;
@@ -122,3 +124,4 @@ bool is_ihex(const char* name) {
   parse(name);  // try
   return true;
 }
+}  // namespace Ihex
