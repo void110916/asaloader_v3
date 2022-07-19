@@ -1,4 +1,7 @@
+#ifndef ASADEVICE_H
+#define ASADEVICE_H
 #include <string>
+
 namespace Loader {
 
 struct asaDevice_t {
@@ -53,3 +56,5 @@ const asaDevice_t asa_dev_list[] = {
      .userapp_size = 0x000F'0000,
      .note = ""}};
 }  // namespace Loader
+
+#endif
