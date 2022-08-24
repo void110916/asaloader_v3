@@ -1,13 +1,54 @@
+// cmake JSON settings see https://github.com/microsoft/vscode-cmake-tools/blob/main/docs/cmake-settings.md
 {
-    "C_Cpp.intelliSenseEngine":"Tag Parser",
+    "C_Cpp.intelliSenseEngine": "Tag Parser",
+    "cmake.mingwSearchDirs": [
+        "C:/ProgramFiles/Qt/Tools/CMake_64/bin"
+    ],
+    "cmake.generator": "Ninja",
     "cmake.configureOnOpen": true,
+    // "linux"
+    // "cmake.configureSettings": {
+    //     "CMAKE_PREFIX_PATH": "${env:HOME}/Qt/6.3.1/gcc_64/",
+    //     "ENABLE_FEATURE": "1",
+    //     "ENABLE_OTHER_FEATURE": "0",
+    //     "symbolSearchPath": "${env:HOME}/Qt/6.3.1/gcc_64/bin"
+    // },
+    // "cmake.configureArgs": [
+    //     "-DCMAKE_PREFIX_PATH=~/Qt/6.3.1/gcc_64"
+    // ],
+    // "windows":
     "cmake.configureSettings": {
-        "CMAKE_PREFIX_PATH": "${env:HOME}/Qt/6.3.1/gcc_64/",
+        "CMAKE_PREFIX_PATH": "C:/Qt/6.3.1/mingw_64",
+        "CMAKE_MAKE_PROGRAM": "C:/Program Files/ninja/ninja.exe",
         "ENABLE_FEATURE": "1",
         "ENABLE_OTHER_FEATURE": "0",
-        "symbolSearchPath": "${env:HOME}/Qt/6.3.1/gcc_64/bin"
+        // "symbolSearchPath": "$C:/ProgramFiles/Qt/6.3.1/mingw_64/bin",
     },
+    "cmake.configureArgs": [
+        // "-DCMAKE_PREFIX_PATH=C:/ProgramFiles/Qt/6.3.1/mingw_64",
+        // "-DCMAKE_CXX_COMPILER=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/HostX64/x64/cl.exe",
+        // "-DCMAKE_C_COMPILER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/HostX64/x64/cl.exe",
+        // "-DCMAKE_CXX_FLAGS_INIT=-DQT_QML_DEBUG"
+    ],
+    "cmake.environment": {
+        "PATH": "%PATH%;C:/Qt/6.3.1/mingw_64/bin", //  ## IMPORTANT
+    },
+    "cmake.buildDirectory": "${workspaceFolder}/build/${buildKitHostOs}/${buildType}",
+    "cmake.debugConfig": {
+        "args": [
+            "prog",
+            "-p",
+            "COM13",
+            "-f",
+            "../../test_hex/m128_hello_world.hex"
+            // "pp"
+            // "pd"
+            // "help"
+        ],
+    },
+    "cmake.installPrefix": "${workspaceFolder}/build/${buildKitHostOs}/install/",
     "files.associations": {
+        "*.m": "matlab",
         "qapplication": "cpp",
         "qtserialport": "cpp",
         "qserialportinfo": "cpp",
@@ -73,6 +114,20 @@
         "filesystem": "cpp",
         "iostream": "cpp",
         "codecvt": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "*.moc": "cpp",
+        "*.qrc": "xml",
+        "*.ui": "xml",
+        "qtextstream": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "numbers": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "qdatetime": "cpp",
+        "qcoreapplication": "cpp",
+        "qlocale": "cpp"
     }
 }

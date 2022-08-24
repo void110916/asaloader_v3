@@ -1,25 +1,55 @@
 {
+    "env": {
+        "WIN32_CMAKE_PREFIX_PATH": "C:/Qt/6.3.1/mingw_64",
+        "LINUX_CMAKE_PREFIX_PATH": "/home/void/Qt/6.3.1/gcc_64",
+        "WIN32_GCC_PATH": "C:/Qt/Tools/mingw1120_64/bin",
+        "LINUX_GCC_PATH": "/usr/bin"
+    },
     "configurations": [
+        // {
+        //     "name": "Linux",
+        //     "includePath": [
+        //         "${workspaceFolder}/**",
+        //         // "/home/void/Qt/6.3.1/gcc_64/include/QtGui/**",
+        //         "${env:LINUX_CMAKE_PREFIX_PATH}/include/QtCore"
+        //         // "/home/void/Qt/6.3.1/gcc_64/include/QtWidgets/**"
+        //     ],
+        //     "defines": [
+        //         "ENABLE_FEATURE=1",
+        //         "ENABLE_OTHER_FEATURE=0",
+        //         // "QT_NO_DEBUG",
+        //         "QT_CORE_LIB",
+        //         "QT_SERIALPORT_LIB"
+        //     ],
+        //     "compilerPath": "${env:LINUX_GCC_PATH}/gcc",
+        //     "cStandard": "gnu17",
+        //     "cppStandard": "gnu++17",
+        //     "intelliSenseMode": "linux-gcc-x64", //
+        //     "configurationProvider": "vector-of-bool.cmake-tools"
+        // }
         {
-            "name": "Linux",
+            "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                // "/home/void/Qt/6.3.1/gcc_64/include/**",
-                "/home/void/Qt/6.3.1/gcc_64/include/QtGui/**",
-                "/home/void/Qt/6.3.1/gcc_64/include/QtCore/**",
-                "/home/void/Qt/6.3.1/gcc_64/include/QtWidgets/**"
+                // "C:/ProgramFiles/Qt/6.3.1/mingw_64/include/QtGui/**",
+                "C:/Qt/6.3.1/mingw_64/include/QtCore/**",
+                "C:/Qt/6.3.1/mingw_64/include/QtSerialPort/**"
+                // "C:/ProgramFiles/Qt/6.3.1/mingw_64/include/QtWidgets/**"
             ],
             "defines": [
-                "CMAKE_PREFIX_PATH=/home/void/Qt/6.3.1/gcc_64/",
                 "ENABLE_FEATURE=1",
                 "ENABLE_OTHER_FEATURE=0",
-                "symbolSearchPath=/home/void/Qt/6.3.1/gcc_64/bin"
+                // "symbolSearchPath=C:/ProgramFiles/Qt/6.3.1/mingw_64/bin",
+                // "QT_NO_DEBUG",
+                "QT_CORE_LIB",
+                "QT_SERIALPORT_LIB"
             ],
-            "compilerPath": "/usr/bin/gcc",
-            "cStandard": "gnu17",
-            "cppStandard": "gnu++14",
-            "intelliSenseMode": "linux-gcc-x64",
-            "configurationProvider": "ms-vscode.cmake-tools"
+            "compilerPath": "${env:WIN32_GCC_PATH}/g++.exe", // "C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.28.29910/bin/HostX64/x64/cl.exe"
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64",
+            "configurationProvider": "vector-of-bool.cmake-tools"
+            // "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         }
     ],
     "version": 4
