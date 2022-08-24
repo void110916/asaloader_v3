@@ -1,5 +1,6 @@
 # Notification
 
+* [qt in vscode](https://www.kdab.com/using-visual-studio-code-for-writing-qt-applications/)
 * [Converting from signed char to unsigned char and back again](https://stackoverflow.com/questions/5040920/converting-from-signed-char-to-unsigned-char-and-back-again)
 
 * [Why doesn't reinterpret_cast convert 'unsigned char' to 'char'](https://stackoverflow.com/questions/14692418/why-doesnt-reinterpret-cast-convert-unsigned-char-to-char)
@@ -14,3 +15,20 @@
   若是用樣板（template），須使用 forward referance 推導 (deduce)
 
 * [range for](https://en.cppreference.com/w/cpp/language/range-for)
+
+* [Inheriting using](https://en.cppreference.com/w/cpp/language/using_declaration)
+
+* [std::vector move to std::vector **make_move_iterator**](https://en.cppreference.com/w/cpp/iterator/make_move_iterator)
+
+## qt console
+
+[教學](https://www.lubby.org/ebooks/qtconsoleapp2/qtconsoleapp2.html)
+
+###　iostream
+
+1. 用 `QTextStream` 包裝 stdout，若結尾用 `\n`非endl，則不會馬上更新(flush)
+2. std::cout
+3. qDebug，結尾會多一個換行
+## qserialport
+
+[DTR, RTS issue](https://forum.qt.io/topic/83679/problem-facing-with-qt-serial-port-module/5)
