@@ -111,15 +111,22 @@ class Loader {
   void _do_prog_end_step();
 
  public:
-  Loader(QSerialPort &serial, int device_type , bool is_flash_prog ,
-         bool is_ext_flash_prog , bool is_eeprom_prog ,
-         bool is_ext_to_int , bool is_go_app ,
-         QString flash_file , QString ext_flash_file ,
+ enum ProgMode {
+    FLASH,
+    EXTFLASH,
+    EEPROM,
+    EXT2INT
+  };
+  Loader(QSerialPort &serial, int device_type, ProgMode progMode, QString file,
+         bool is_go_app = false, int go_app_delay = 1000);
+  Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
+         bool is_ext_flash_prog, bool is_eeprom_prog, bool is_ext_to_int,
+         bool is_go_app, QString flash_file, QString ext_flash_file,
          QString eeprom_file, int go_app_delay);
-  Loader(QSerialPort &serial, int device_type , bool is_flash_prog ,
-         QString flash_file, bool is_go_app,
-         int go_app_delay );
+  Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
+         QString flash_file, bool is_go_app, int go_app_delay);
   ~Loader();
+  
   void do_step();
   uint16_t total_steps() const { return _total_steps; }
   int device_type() const { return _device_type; }

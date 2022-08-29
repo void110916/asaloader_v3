@@ -10,6 +10,33 @@
 
 ////    Loader start
 namespace Loader {
+Loader::Loader(QSerialPort &serial, int device_type, ProgMode progMode,
+               QString file, bool is_go_app, int go_app_delay)
+    : _serial(serial),
+      cmd(serial),
+      _device_type(device_type),
+      _is_go_app(is_go_app),
+      _go_app_delay(go_app_delay) {
+  switch (progMode) {
+    case ProgMode::FLASH:
+      _is_flash_prog = true;
+      _flash_file = file;
+      break;
+    case ProgMode::EXTFLASH:
+      _is_ext_flash_prog = true;
+      _ext_flash_file = file;
+      break;
+    case ProgMode::EEPROM:
+      _is_eeprom_prog = true;
+      _eep_file = file;
+      break;
+    case ProgMode::EXT2INT:
+      _is_ext_to_int = true;
+      break;
+  }
+  _prepare();
+}
+
 Loader::Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
                bool is_ext_flash_prog, bool is_eeprom_prog, bool is_ext_to_int,
                bool is_go_app, QString flash_file, QString ext_flash_file,
@@ -29,9 +56,8 @@ Loader::Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
   _prepare();
 }
 
-Loader::Loader(QSerialPort &serial, int device_type,
-               bool is_flash_prog , QString flash_file ,
-               bool is_go_app , int go_app_delay)
+Loader::Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
+               QString flash_file, bool is_go_app, int go_app_delay)
     : _serial(serial),
       cmd(serial),
       _device_type(device_type),
