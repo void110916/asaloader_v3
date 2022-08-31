@@ -1,20 +1,29 @@
 
 # ===== add translator ============================================ #
 set(TS_FILES asaloader_zh_TW.ts asaloader_en_US.ts)
-qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
+# file(GLOB TS_FILES asaloader_zh_TW.ts asaloader_en_US.ts)
+# qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES} OPTIONS -no-obsolete )
+qt_add_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES} )
 # configure_file(${QM_FILES} ${CMAKE_SOURCE_DIR} COPYONLY)  # must build once than use this command
 # ================================================================= #
 # ===== add executable ============================================ #
 qt_add_executable(${PROJECT_NAME} 
   main.cpp
-  ${QM_FILES}
+  # ${QM_FILES}
 )
 # set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS_RELEASE "/SUBSYSTEM:CONSOLE")
 # set_target_properties(${PROJECT_NAME} PROPERTIES
 #     WIN32_EXECUTABLE ON
 #     # MACOSX_BUNDLE ON
 # ) # this setting is for GUI applications
-
+# message(${PROJECT_BINARY_DIR})
+qt_add_resources(${PROJECT_NAME} "tr"
+    PREFIX "/"
+    BASE ${PROJECT_BINARY_DIR}
+    FILES
+    ${PROJECT_BINARY_DIR}/asaloader/asaloader_en_US.qm
+    ${PROJECT_BINARY_DIR}/asaloader/asaloader_zh_TW.qm
+)
 # ================================================================= #
 # ===== add QT/custom libraries ============================================ #
 add_subdirectory(loader)
