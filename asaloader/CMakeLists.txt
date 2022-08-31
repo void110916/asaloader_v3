@@ -1,6 +1,6 @@
 
 # ===== add translator ============================================ #
-set(TS_FILES asaloader_zh_TW.ts)
+set(TS_FILES asaloader_zh_TW.ts asaloader_en_US.ts)
 qt_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 # configure_file(${QM_FILES} ${CMAKE_SOURCE_DIR} COPYONLY)  # must build once than use this command
 # ================================================================= #
