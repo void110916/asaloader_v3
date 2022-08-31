@@ -111,12 +111,7 @@ class Loader {
   void _do_prog_end_step();
 
  public:
- enum ProgMode {
-    FLASH,
-    EXTFLASH,
-    EEPROM,
-    EXT2INT
-  };
+  enum ProgMode { FLASH, EXTFLASH, EEPROM, EXT2INT };
   Loader(QSerialPort &serial, int device_type, ProgMode progMode, QString file,
          bool is_go_app = false, int go_app_delay = 1000);
   Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
@@ -126,7 +121,7 @@ class Loader {
   Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
          QString flash_file, bool is_go_app, int go_app_delay);
   ~Loader();
-  
+
   void do_step();
   uint16_t total_steps() const { return _total_steps; }
   int device_type() const { return _device_type; }
@@ -134,6 +129,8 @@ class Loader {
   uint16_t ext_flash_size() const { return _ext_flash_size; }
   uint16_t eep_size() const { return _eep_size; }
   float prog_time() const { return _prog_time; }
+  Q_SIGNALS:
+       progressSet(int value);
 };
 
 }  // namespace Loader
