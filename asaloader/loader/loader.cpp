@@ -68,7 +68,8 @@ Loader::Loader(QSerialPort &serial, int device_type, bool is_flash_prog,
   _prepare();
 }
 Loader::~Loader() {
-  if (_serial.isOpen()) _serial.close();
+  if (&_serial)
+    if (_serial.isOpen()) _serial.close();
 }
 
 void Loader::_prepare() {
@@ -276,7 +277,7 @@ void Loader::do_step() {
       _do_prog_end_step();
       break;
   }
-  emit progressSet(_cur_step/_total_steps);
+  emit progressSet(_cur_step * 100 / _total_steps);
 }
 ////    Loader end
 
@@ -312,7 +313,7 @@ void CMD::_get_packet(Command &cmd_out, std::vector<uint8_t> &data_out) {
   char ch = 0;
   // QThread::usleep(10);
   _serial.waitForReadyRead(3000);
-  _serial.bytesAvailable();
+  auto size=_serial.bytesAvailable();
   while (!exit_flag) {
     auto rd = _serial.read(&ch, 1);
     if (rd > 0)

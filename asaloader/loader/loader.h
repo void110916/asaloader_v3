@@ -63,7 +63,8 @@ class CMD {
   bool cmd_v3_ext_flash_hex_delete();
   bool cmd_v3_ext_flash_finish();
 };
-class Loader {
+class Loader:public QObject {
+       Q_OBJECT
  private:
   enum Stage { PREPARE, FLASH_PROG, EEP_PROG, EXT_FLASH_PROG, EXT_TO_INT, END };
 
@@ -124,13 +125,14 @@ class Loader {
 
   void do_step();
   uint16_t total_steps() const { return _total_steps; }
+  uint16_t cur_step() const {return _cur_step;}
   int device_type() const { return _device_type; }
   uint16_t flash_size() const { return _flash_size; }
   uint16_t ext_flash_size() const { return _ext_flash_size; }
   uint16_t eep_size() const { return _eep_size; }
   float prog_time() const { return _prog_time; }
   Q_SIGNALS:
-       progressSet(int value);
+      void progressSet(int value);
 };
 
 }  // namespace Loader
