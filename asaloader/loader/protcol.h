@@ -67,6 +67,7 @@ namespace Loader
     int _chksum;
 
     std::array<uint8_t, 3> header_buffer;
+    std::array<uint8_t,3>::iterator buffer_ptr=header_buffer.begin();
     static constexpr uint8_t _HEADER[3] = {0xfc, 0xfc, 0xfc};
     static const uint8_t _TOCKEN = 0x01;
     enum _Status : int

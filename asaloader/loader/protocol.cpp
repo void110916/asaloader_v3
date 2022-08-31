@@ -24,7 +24,6 @@ Decoder::~Decoder()
 // }
 void Decoder::step(uint8_t data)
 {
-  static auto buffer_ptr = header_buffer.begin();
   switch (_status)
   {
   case _Status::HEADER:
