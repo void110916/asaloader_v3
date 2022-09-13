@@ -277,7 +277,6 @@ void Loader::do_step() {
       _do_prog_end_step();
       break;
   }
-  emit progressSet(_cur_step * 100 / _total_steps);
 }
 ////    Loader end
 
