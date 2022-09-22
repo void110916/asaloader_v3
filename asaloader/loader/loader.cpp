@@ -312,22 +312,21 @@ void CMD::_get_packet(Command &cmd_out, std::vector<uint8_t> &data_out) {
   char ch = 0;
   // QThread::usleep(10);
   _serial.waitForReadyRead(3000);
-  auto size=_serial.bytesAvailable();
+  auto size = _serial.bytesAvailable();
   while (!exit_flag) {
     auto rd = _serial.read(&ch, 1);
     if (rd > 0)
       decoder->step(reinterpret_cast<uint8_t &>(ch));
     else {
       // std::cout << "no full packet" << std::endl;
-      static bool isWaited=false;
-      if(!isWaited)
-      {isWaited=true;
-      _serial.waitForReadyRead(3000);}
-      else
-      {
-        isWaited=false;
-        return;
-      }
+      static bool isWaited = false;
+      _serial.waitForReadyRead(3000);
+      // if (!isWaited) {
+      //   isWaited = true;
+      // } else {
+      //   isWaited = false;
+      //   return;
+      // }
     }
     if (decoder->isDone) {
       decoder->getPacket(cmd_out, data_out);
