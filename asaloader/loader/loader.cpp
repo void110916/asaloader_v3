@@ -319,7 +319,15 @@ void CMD::_get_packet(Command &cmd_out, std::vector<uint8_t> &data_out) {
       decoder->step(reinterpret_cast<uint8_t &>(ch));
     else {
       // std::cout << "no full packet" << std::endl;
-      _serial.waitForReadyRead(3000);
+      static bool isWaited=false;
+      if(!isWaited)
+      {isWaited=true;
+      _serial.waitForReadyRead(3000);}
+      else
+      {
+        isWaited=false;
+        return;
+      }
     }
     if (decoder->isDone) {
       decoder->getPacket(cmd_out, data_out);

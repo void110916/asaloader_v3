@@ -1,5 +1,5 @@
 # Notification
-
+* [about noexcept](https://xinhuang.github.io/posts/2013-12-31-when-to-use-noexcept-and-when-to-not.html)
 * [qt in vscode](https://www.kdab.com/using-visual-studio-code-for-writing-qt-applications/)
 * [Converting from signed char to unsigned char and back again](https://stackoverflow.com/questions/5040920/converting-from-signed-char-to-unsigned-char-and-back-again)
 
