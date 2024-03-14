@@ -51,13 +51,18 @@ namespace Loader
       else if (*str == u"-p"_qs || *str == u"--port"_qs)
       {
         bool isexit = true;
+        std::cout << (*(str+1)).toStdString()<<std::endl;
         for (auto &&port : QSerialPortInfo::availablePorts())
-          if (*++str == port.portName())
+        {
+          std::cout << port.portName().toStdString()<<std::endl;
+          if (*(str+1) == port.portName())
           {
             portName = port.portName();
             isexit = false;
             break;
           }
+        }
+          
         if (isexit)
         {
           std::cout << QObject::tr("No Device detect").toStdString() << std::endl;
@@ -67,10 +72,11 @@ namespace Loader
       else if (*str == u"-f"_qs || *str == u"--flash"_qs)
       {
         QFileInfo f{*(++str)};
-        if (f.isFile() && f.suffix() == "hex")
+        if ( f.suffix() == "hex")// f.isFile() &&
         {
           is_flash_prog = true;
           flash_file = f.absoluteFilePath();
+          // auto a=flash_file.toStdString();
         }
         else
         {
