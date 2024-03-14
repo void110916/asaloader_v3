@@ -5,7 +5,7 @@
 #include <QTextStream>
 #include <QTranslator>
 #include <iostream>
-#include <windows.h>
+
 #include "asadevice.h"
 #include "loader.h"
 #include "prog_arg.h"
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 {
   QCoreApplication a(argc, argv);
   
-  qout << "start asaloader"<<Qt::endl;
+
   QTranslator translator;
   const QStringList uiLanguages = QLocale::system().uiLanguages();
   for (const QString &locale : uiLanguages)
